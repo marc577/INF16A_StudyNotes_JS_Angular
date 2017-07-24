@@ -1,0 +1,33 @@
+<div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+  <!--hello works!
+
+  <input [(ngModel)]="name" required>
+  <p>Value: {{ name }}</p>
+
+  <button (click)="setValue()">Set value</button>
+
+
+  <p>Value Service : {{ dataService }}</p> -->
+
+  <h2>Kurse</h2>
+  <div *ngIf="current">
+    <h2>Infos zu {{current.name}}</h2>
+    <input [(ngModel)] ="current.name" />
+
+    <button (click)="update()" [disabled] = "!current.name " >Speichern</button>
+    <button (click)="remove()">Löschen</button>
+    <button (click)="cancel()">Abbrechen</button>
+  </div>
+  <div *ngIf="!current">
+    <ul >
+      <li *ngFor="let s of dataService.courses; let i = index" >
+        <button (click)="edit(s)" class="">{{(i+1)}} - {{s.name}}</button>
+    </ul>
+    <br>
+    <div>
+      <input type="text" [(ngModel)]="name" />
+      <input type="button" (click)="addCourse()" value="Hinzufügen"/>
+      <p>Value: {{name}}</p>
+    </div>
+  </div>
+</div>
