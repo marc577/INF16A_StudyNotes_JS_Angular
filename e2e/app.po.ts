@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
 
-export class App3Page {
+export class ClassifyPage {
   navigateTo() {
     return browser.get('/');
   }

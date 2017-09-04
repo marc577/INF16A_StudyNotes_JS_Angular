@@ -1,14 +1,14 @@
-import { App3Page } from './app.po';
+import { ClassifyPage } from './app.po';
 
-describe('app3 App', () => {
-  let page: App3Page;
+describe('classify App', () => {
+  let page: ClassifyPage;
 
   beforeEach(() => {
-    page = new App3Page();
+    page = new ClassifyPage();
   });
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });
