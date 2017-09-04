@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <div class="background"><img id="image" class="login-blur" src="assets/img/login.jpeg"></div>
+  <md-card class="login-card">
+    <img class="login-img" src="assets/img/classify_purple.png" />
+    <form (submit)="loginUser()">
+      <i class="material-icons login-icon">person</i>
+
+      <md-input-container class="login-input">
+        <input mdInput placeholder="Username" type="text" [(ngModel)]="username" name="username" (keyup.enter)="loginUser()">
+      </md-input-container>
+      <i class="material-icons login-icon">lock</i>
+      <md-input-container class="login-input">
+        <input mdInput placeholder="Passwort" type="password" [(ngModel)]="password" name="password" (keyup.enter)="loginUser()">
+      </md-input-container>
+    </form>
+  </md-card>
+
+</div>

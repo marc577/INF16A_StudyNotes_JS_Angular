@@ -1,0 +1,30 @@
+<div class="content">
+  <h1> {{ sideName }} </h1>
+  <div class="search">
+  <i class="material-icons login-icon">search</i>
+  <form>
+      <input placeholder="Suche.." value="a" name="searchText" [(ngModel)]="searchText">
+    </form>
+  </div>
+  <table class="table-md" cellspacing="0" cellpadding="20" *ngFor="let class of class">
+    <h2>{{ class.level }}{{ class.name }}</h2>
+    <tr>
+      <th></th>
+      <th></th>
+      <th><a>Vorname</a></th>
+      <th><a>Nachname</a></th>
+    </tr>
+    <ng-container *ngFor="let student of student | searchfilter : searchText; let i= index">
+      <tr class="table-hover" *ngIf="student.class == class.level + class.name">
+        <td>
+          <md-checkbox class="checkbox pull-left"></md-checkbox>
+        </td>
+        <td class="initalen"><button class="pull-left" md-mini-fab>{{ student.firstName | slice: 0:1}}{{ student.lastName | slice: 0:1}}</button></td>
+        <td><a>{{student.firstName}}</a></td>
+        <td><a>{{student.lastName}}</a></td>
+      </tr>
+    </ng-container>
+
+  </table>
+  <div class="placeholder"></div>
+</div>

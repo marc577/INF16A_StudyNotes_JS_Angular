@@ -1,0 +1,20 @@
+
+<a class="dialog-header" md-dialog-title><button md-fab><md-icon>person</md-icon></button> Schüler bearbeiten</a>
+<md-dialog-content class="">
+  <form class="dialog-form">
+    <md-input-container>
+      <input class="dialog-input" mdInput placeholder="Vorname" type="text" [(ngModel)]="firstName" name="firstName"  required>
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Nachname" type="text" [(ngModel)]="lastName" name="lastName" required>
+    </md-input-container>
+  </form>
+  <form>
+   <md-select placeholder="Klasse"  name="class" [(ngModel)]="class">
+   <md-option *ngFor="let allClassOnlyName of allClassOnlyName" [value]="allClassOnlyName.value" ngDefaultControl>{{ allClassOnlyName.value }}</md-option>
+  </md-select>
+  </form>
+</md-dialog-content>
+<md-dialog-actions class="pull-right">
+  <button md-dialog-close md-raised-button (click)="editStudent()"><md-icon>keyboard_arrow_right</md-icon></button>
+</md-dialog-actions>

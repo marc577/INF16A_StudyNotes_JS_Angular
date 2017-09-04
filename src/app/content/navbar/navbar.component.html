@@ -1,0 +1,14 @@
+<div class="navbar">
+  <div class="container">
+    <button [mdMenuTriggerFor]="menu" class="pull-right-item current-user" md-mini-fab>{{ userInitialen[0] | slice: 0:1}}{{ userInitialen[1] | slice: 0:1}}</button>
+    <button md-icon-button [mdMenuTriggerFor]="menu" class="pull-right">
+  <md-icon>arrow_drop_down</md-icon>
+</button>
+    <md-menu #menu="mdMenu">
+      <button md-menu-item routerLink="/">
+    <md-icon>power_settings_new</md-icon>
+    <a >Abmelden</a>
+  </button>
+    </md-menu>
+  </div>
+</div>

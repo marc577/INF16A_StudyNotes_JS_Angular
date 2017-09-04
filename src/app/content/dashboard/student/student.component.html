@@ -1,0 +1,56 @@
+<div class="content">
+  <h1> {{ sideName }} </h1>
+  <div class="search">
+      <i class="material-icons login-icon">search</i>
+      <form>
+          <input placeholder="Suche.." value="a" name="searchText" [(ngModel)]="searchText">
+      </form>
+      </div>
+  <table cellspacing="0" cellpadding="20">
+    <tr>
+      <th></th>
+      <th></th>
+      <th><a>Vorname</a></th>
+      <th><a>Nachname</a></th>
+      <th><a>Klasse</a></th>
+      <th><a>Notiz</a></th>
+      <th></th>
+    </tr>
+    <tr class="table-hover" *ngFor="let student of student | searchfilter : searchText; let i= index">
+      <td>
+        <md-checkbox class="checkbox pull-left"></md-checkbox>
+      </td>
+      <td class="initalen"><button class="pull-left" md-mini-fab>{{ student.firstName | slice: 0:1}}{{ student.lastName | slice: 0:1}}</button></td>
+      <td><a>{{student.firstName}}</a></td>
+      <td><a>{{student.lastName}}</a></td>
+      <td><a>{{student.class}}</a></td>
+      <td>
+        <ng-container *ngFor="let note of note">
+            <md-chip-list class="chip" *ngIf="note.student == student.firstName + student.lastName">
+                <md-chip color="accent" selected="true">{{note.note}}</md-chip>
+            </md-chip-list>
+        </ng-container>
+
+      </td>
+      <td><button class="options" md-icon-button [mdMenuTriggerFor]="menu">
+  <md-icon class="design-font-color">more_vert</md-icon>
+</button>
+        <md-menu #menu="mdMenu">
+          <button (click)="setNote()" md-menu-item>
+              <md-icon>note</md-icon>
+              <span>Notiz hinzufügen</span>
+            </button>
+          <button (click)="editStudent(i)" md-menu-item>
+    <md-icon>edit</md-icon>
+    <span>Bearbeiten</span>
+  </button>
+          <button (click)="deleteStudent(i)" md-menu-item>
+    <md-icon>delete</md-icon>
+    <span>Löschen</span>
+  </button>
+        </md-menu>
+      </td>
+    </tr>
+  </table>
+  <div class="placeholder"></div>
+</div>

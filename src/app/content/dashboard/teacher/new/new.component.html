@@ -1,0 +1,26 @@
+
+<a class="dialog-header" md-dialog-title><button md-fab><md-icon>person</md-icon></button> Neuer Lehrer</a>
+<md-dialog-content class="">
+  <form class="dialog-form">
+    <md-input-container>
+      <input class="dialog-input" mdInput placeholder="Vorname" type="text" [(ngModel)]="firstname" name="firstname"  required>
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Nachname" type="text" [(ngModel)]="lastname" name="lastname" required>
+    </md-input-container>
+  </form>
+  <form class="dialog-form">
+    <md-input-container>
+      <input mdInput placeholder="Mail" type="email"  name="mail" [formControl]="emailFormControl" [(ngModel)]="mail" required>
+      <md-error *ngIf="emailFormControl.hasError('pattern')">
+      Ungültige Mail
+    </md-error>
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Passwort" type="password" [(ngModel)]="password" name="password" required>
+    </md-input-container>
+  </form>
+</md-dialog-content>
+<md-dialog-actions class="pull-right">
+  <button md-dialog-close md-raised-button (click)="newTeacher()"><md-icon>keyboard_arrow_right</md-icon></button>
+</md-dialog-actions>

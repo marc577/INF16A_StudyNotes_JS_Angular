@@ -1,0 +1,21 @@
+<a class="dialog-header" md-dialog-title><button md-fab><md-icon>person</md-icon></button> Neue Notiz</a>
+<md-dialog-content class="">
+  <form class="dialog-form">
+    <md-input-container>
+      <input class="dialog-input" mdInput placeholder="Notiz" type="text" [(ngModel)]="note" name="note" required>
+    </md-input-container>
+    <md-input-container>
+      <input placeholder="Schüler" name="student" [(ngModel)]="student" type="text" mdInput [formControl]="studentControl" [mdAutocomplete]="auto">
+    </md-input-container>
+
+    <md-autocomplete #auto="mdAutocomplete" ngDefaultControl>
+      <md-option *ngFor="let student of filteredOptions | async" [value]="student">
+        {{ student }}
+      </md-option>
+    </md-autocomplete>
+  </form>
+
+</md-dialog-content>
+<md-dialog-actions class="pull-right">
+  <button md-dialog-close md-raised-button (click)="newNote()"><md-icon>keyboard_arrow_right</md-icon></button>
+</md-dialog-actions>
