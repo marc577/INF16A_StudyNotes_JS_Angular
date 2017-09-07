@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
+import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA, MdSnackBar } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
@@ -18,10 +18,11 @@ export class EditnoteComponent implements OnInit {
   private allStudents = [];
   private allStudentsData = [];
   private filteredOptions: Observable<string[]>;
+  private regex = new RegExp('[A-Za-z0-9]');
 
   constructor(
     public dialogRef: MdDialogRef<EditnoteComponent>,
-    @Inject(MD_DIALOG_DATA) public data: any) {
+    @Inject(MD_DIALOG_DATA) public data: any, public snackBar: MdSnackBar) {
   }
 
   ngOnInit(
@@ -34,20 +35,33 @@ export class EditnoteComponent implements OnInit {
   }
 
   private editNote() {
-    var items = JSON.parse(localStorage.getItem("note"));
-    var editNote = {
-      'date': new Date(),
-      'note': this.note,
-      'teacher': this.getCurrentUser(),
-      'student': items[this.data.index].student
-    };
-    items[this.data.index] = editNote;
-    items = JSON.stringify(items);
-    localStorage.setItem("note", items);
+    if (this.note != undefined && this.student != null && this.regex.test(this.note)) {
+      var items = JSON.parse(localStorage.getItem("note"));
+      var editNote = {
+        'date': new Date(),
+        'note': this.note,
+        'teacher': this.getCurrentUser(),
+        'student': items[this.data.index].student
+      };
+
+      items[this.data.index] = editNote;
+      items = JSON.stringify(items);
+      localStorage.setItem("note", items);
+    }
+    else {
+      this.snackBar.open("Eingabe fehlerhaft!", "Okay", {
+        duration: 3000,
+      });
+    }
   }
 
   private getStudents() {
+    var items = JSON.parse(localStorage.getItem("note"));
     this.allStudentsData = JSON.parse(localStorage.getItem("students"));
+
+    this.note = items[this.data.index].note;
+    this.student = items[this.data.index].student;
+
     for (let i = 0; i < this.allStudentsData.length; i++) {
       this.allStudents[i] = this.allStudentsData[i].firstName + this.allStudentsData[i].lastName;
     }

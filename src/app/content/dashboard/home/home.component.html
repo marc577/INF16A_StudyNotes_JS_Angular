@@ -17,7 +17,6 @@
     <ng-container *ngFor="let student of student | searchfilter : searchText; let i= index">
       <tr class="table-hover" *ngIf="student.class == class.level + class.name">
         <td>
-          <md-checkbox class="checkbox pull-left"></md-checkbox>
         </td>
         <td class="initalen"><button class="pull-left" md-mini-fab>{{ student.firstName | slice: 0:1}}{{ student.lastName | slice: 0:1}}</button></td>
         <td><a>{{student.firstName}}</a></td>

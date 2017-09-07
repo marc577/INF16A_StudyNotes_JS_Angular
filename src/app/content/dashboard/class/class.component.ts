@@ -12,6 +12,7 @@ export class ClassComponent implements OnInit {
   private sideName:string;
   private class = [];
   private searchtext: string;
+  private checked:boolean;
 
    constructor(public dialog: MdDialog) {
     this.sideName = "Klassen";
@@ -19,6 +20,7 @@ export class ClassComponent implements OnInit {
 
   ngOnInit() {
     this.getClass();
+    localStorage.removeItem("checkbox");
   }
 
   private editClass(i: number) {
@@ -26,9 +28,12 @@ export class ClassComponent implements OnInit {
       data: { index: i }
     });
     dialogRef.afterClosed().subscribe(res => {
-      console.log("a");
       this.getClass();
     });
+  }
+
+  private CheckboxCheck(i:number){
+    
   }
 
   private deleteClass(i: number) {

@@ -41,5 +41,4 @@ export class NoteComponent implements OnInit {
   public getNote(){
     this.note = JSON.parse(localStorage.getItem("note"));
   }
-
 }

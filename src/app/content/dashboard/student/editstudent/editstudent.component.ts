@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
+import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA, MdSnackBar } from '@angular/material';
 
 
 @Component({
@@ -13,10 +13,11 @@ export class EditstudentComponent implements OnInit {
   private allClass = [];
   private allClassOnlyName = [];
   private content = {};
+  private regex = new RegExp("[A-Za-z]");
 
   constructor(
     public dialogRef: MdDialogRef<EditstudentComponent>,
-    @Inject(MD_DIALOG_DATA) public data: any) {
+    @Inject(MD_DIALOG_DATA) public data: any, public snackBar:MdSnackBar) {
   }
 
   ngOnInit() {
@@ -24,19 +25,32 @@ export class EditstudentComponent implements OnInit {
   }
 
   private editStudent() {
-    var items = JSON.parse(localStorage.getItem("students"));
-    var editStudent = {
-      'firstName': this.firstName + " ",
-      'lastName': this.lastName,
-      'class': this.class,
-    };
-    items[this.data.index] = editStudent;
-    items = JSON.stringify(items);
-    localStorage.setItem("students", items);
+    if(this.firstName != null && this.lastName != null && this.class != null && this.regex.test(this.firstName) && this.regex.test(this.lastName)){
+      var items = JSON.parse(localStorage.getItem("students"));
+      var editStudent = {
+        'firstName': this.firstName + " ",
+        'lastName': this.lastName,
+        'class': this.class,
+      };
+      items[this.data.index] = editStudent;
+      items = JSON.stringify(items);
+      localStorage.setItem("students", items);
+    }
+    else{
+      this.snackBar.open("Eingabe fehlerhaft!", "Okay", {
+        duration: 3000,
+      });
+    }
+    
   }
 
   private getClass() {
-    this.allClass = JSON.parse(localStorage.getItem("class"));
+    this.allClass = JSON.parse(localStorage.getItem("class"));    
+    var items = JSON.parse(localStorage.getItem("students"));
+    
+    this.firstName = items[this.data.index].firstName;
+    this.lastName = items[this.data.index].lastName;
+    this.class = items[this.data.index].class;
 
     for (let i = 0; i < this.allClass.length; i++) {
       this.content = {

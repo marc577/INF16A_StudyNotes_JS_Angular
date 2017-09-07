@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { MdSnackBar } from '@angular/material'
 
 
 @Component({
@@ -16,8 +17,9 @@ export class NewnoteComponent implements OnInit {
   private allStudents = [];
   private allStudentsData = [];
   private filteredOptions: Observable<string[]>;
+  private regex = new RegExp('[A-Za-z0-9]');
 
-  constructor() { }
+  constructor(public snackBar: MdSnackBar) { }
 
   ngOnInit(
   ) {
@@ -29,8 +31,7 @@ export class NewnoteComponent implements OnInit {
   }
 
   private newNote() {
-    console.log(this.student);
-    if (this.note != null && this.student != null) {
+    if (this.note != null && this.student != null && this.regex.test(this.note)) {
       var oldNote = JSON.parse(localStorage.getItem('note')) || [];
       var newNote = {
         'date': new Date(),
@@ -40,6 +41,12 @@ export class NewnoteComponent implements OnInit {
       };
       oldNote.push(newNote);
       localStorage.setItem('note', JSON.stringify(oldNote));
+      window.location.reload();
+    }
+    else {
+      this.snackBar.open("Eingabe fehlerhaft!", "Okay", {
+        duration: 3000,
+      });
     }
   }
 

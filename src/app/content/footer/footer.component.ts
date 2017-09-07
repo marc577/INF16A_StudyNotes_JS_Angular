@@ -24,21 +24,18 @@ export class FooterComponent implements OnInit {
       this.dialogRef = this.dialog.open(NewComponent);
       this.dialogRef.afterClosed().subscribe(res => {
         this.teacher.getTeacher();
-        window.location.reload();
       });
     }
     if(this.router.url == "/content/student"){
       this.dialogRef = this.dialog.open(NewstudentComponent);
       this.dialogRef.afterClosed().subscribe(res => {
         this.student.getStudent();
-        window.location.reload();
       });
     }
     if(this.router.url == "/content/class"){
       this.dialogRef = this.dialog.open(NewclassComponent);
       this.dialogRef.afterClosed().subscribe(res => {
         this.classes.getClass();
-        window.location.reload();
       });
       
     }
@@ -46,7 +43,6 @@ export class FooterComponent implements OnInit {
       this.dialogRef = this.dialog.open(NewnoteComponent);
       this.dialogRef.afterClosed().subscribe(res => {
         this.note.getNote();
-        window.location.reload();
       });
     }
     

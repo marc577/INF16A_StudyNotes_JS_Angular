@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
 import { EditComponent } from './edit/edit.component'
-import {MdSnackBar} from '@angular/material';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-teacher',
@@ -38,22 +38,21 @@ export class TeacherComponent implements OnInit {
     this.getTeacher();
   }
 
-  public getTeacher(){
+  public getTeacher() {
     this.teacher = JSON.parse(localStorage.getItem("teachers"));
   }
 
-  private showPassword(i:number){
-    console.log(localStorage.getItem("currentUser") );
-    if(localStorage.getItem("currentUser") == this.teacher[i].firstName + " " +this.teacher[i].lastName){
-    this.snack.open(this.teacher[i].password, "Okay", {
-      duration: 3000,
-    });
-  }
-  else{
-    this.snack.open("Keine Berechtigung", "Okay", {
-      duration: 2000,
-    });
-  }
+  private showPassword(i: number) {
+    if (localStorage.getItem("currentUser") == this.teacher[i].firstName + " " + this.teacher[i].lastName) {
+      this.snack.open(this.teacher[i].password, "Okay", {
+        duration: 3000,
+      });
+    }
+    else {
+      this.snack.open("Keine Berechtigung", "Okay", {
+        duration: 2000,
+      });
+    }
   }
 }
 

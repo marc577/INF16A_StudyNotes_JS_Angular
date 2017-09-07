@@ -1,11 +1,12 @@
 <div class="content">
   <h1> {{ sideName }} </h1>
+  <button *ngIf="checked" class="pull-right-item" md-raised-button>Löschen</button>
   <div class="search">
-      <i class="material-icons login-icon">search</i>
-      <form>
-          <input placeholder="Suche.." value="a" name="searchText" [(ngModel)]="searchText">
-      </form>
-      </div>
+    <i class="material-icons login-icon">search</i>
+    <form>
+      <input placeholder="Suche.." value="a" name="searchText" [(ngModel)]="searchText">
+    </form>
+  </div>
   <table cellspacing="0" cellpadding="20">
     <tr>
       <th></th>
@@ -16,7 +17,7 @@
     </tr>
     <tr class="table-hover" *ngFor="let class of class | searchfilter : searchText; let i= index">
       <td>
-        <md-checkbox class="checkbox pull-left"></md-checkbox>
+        <md-checkbox (click)="CheckboxCheck(i);" class="checkbox pull-left"></md-checkbox>
       </td>
       <td class="initalen"><button class="pull-left" md-mini-fab>{{ class.level }} {{ class.name}}</button></td>
       <td><a>{{class.level}}</a></td>

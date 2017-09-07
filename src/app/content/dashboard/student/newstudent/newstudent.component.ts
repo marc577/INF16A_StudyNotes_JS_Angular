@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import {MdSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-newstudent',
@@ -11,15 +12,16 @@ export class NewstudentComponent implements OnInit {
   private allClass = [];
   private allClassOnlyName = [];
   private content = {};
+  private regex = new RegExp("[A-Za-z]");
 
-  constructor() { }
+  constructor(public snackBar:MdSnackBar) { }
 
   ngOnInit() {
     this.getClass();
   }
 
   private newStudent(){
-    if(this.firstName != null && this.lastName != null && this.class != null ){
+    if(this.firstName != null && this.lastName != null && this.class != null && this.regex.test(this.firstName) && this.regex.test(this.lastName)){
       var oldStudent = JSON.parse(localStorage.getItem('students')) || [];
     var newStudent = {
     'firstName': this.firstName+" ",
@@ -29,7 +31,14 @@ export class NewstudentComponent implements OnInit {
 
     oldStudent.push(newStudent);
     localStorage.setItem('students', JSON.stringify(oldStudent));
+    window.location.reload();
     }
+    else{
+      this.snackBar.open("Eingabe fehlerhaft!", "Okay", {
+        duration: 3000,
+      });
+    }
+
     }
     private getClass(){
       this.allClass = JSON.parse(localStorage.getItem("class"));
