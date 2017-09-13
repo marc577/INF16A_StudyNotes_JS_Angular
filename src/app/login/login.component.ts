@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 import { UserServiceService } from '../user-service.service';
 
 @Component({
@@ -16,9 +17,8 @@ export class LoginComponent implements OnInit {
   private teacher = [];
   private admin = {};
 
-  constructor(private router: Router, private user: UserServiceService, private myElement: ElementRef) {
+  constructor(private router: Router, private user: UserServiceService, private myElement: ElementRef, private _cookieService:CookieService) {
     this.elementRef = myElement;
-
   }
 
   ngOnInit() {
@@ -50,12 +50,26 @@ export class LoginComponent implements OnInit {
     for (let i = 0; i < this.teacher.length; i++) {
       if (this.username == this.teacher[i].firstName && this.password == this.teacher[i].password  ) {
         localStorage.setItem("currentUser", this.username+ " "+ this.teacher[i].lastName);
+        this.setCookie("isLoggedIn", "true", 1);
         this.user.setUserLoggedIn();
         this.router.navigate(['content/home']);
       }
     }
 
   }
+
+  private setCookie(name: string, value: string, expireDays: number, path: string = "") {
+    let d:Date = new Date();
+    d.setTime(d.getTime() + expireDays * 24 * 60 * 60 * 1000);
+    let expires:string = "expires=" + d.toUTCString();
+    document.cookie = name + "=" + value + "; " + expires + (path.length > 0 ? "; path=" + path : "");
+}
+
+  private getCookie(key: string){
+    console.log(this._cookieService.get(key));
+    return this._cookieService.get(key);
+  }
+
   @HostListener('mousemove', ['$event'])
   onMousemove(event: MouseEvent) {
     var pageX = event.pageX - ((window.screen.width) / 2);

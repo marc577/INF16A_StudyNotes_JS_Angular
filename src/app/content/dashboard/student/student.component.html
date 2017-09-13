@@ -27,7 +27,7 @@
       <td>
         <ng-container *ngFor="let note of note">
             <md-chip-list class="chip" *ngIf="note.student == student.firstName + student.lastName">
-                <md-chip color="accent" selected="true">{{note.note}}</md-chip>
+                <md-chip (click)="showNotes(i)" color="accent" selected="true">{{note.note}}</md-chip>
             </md-chip-list>
         </ng-container>
 
@@ -37,8 +37,12 @@
 </button>
         <md-menu #menu="mdMenu">
           <button (click)="setNote()" md-menu-item>
-              <md-icon>note</md-icon>
+              <md-icon>note_add</md-icon>
               <span>Notiz hinzufügen</span>
+            </button>
+            <button (click)="showNotes(i)" md-menu-item>
+              <md-icon>note</md-icon>
+              <span>Notizen bearbeiten</span>
             </button>
           <button (click)="editStudent(i)" md-menu-item>
     <md-icon>edit</md-icon>

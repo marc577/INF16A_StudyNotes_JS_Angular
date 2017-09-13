@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
 import { EditstudentComponent } from './editstudent/editstudent.component'
 import { NewnoteComponent } from '../note/newnote/newnote.component';
-import { SearchFilterPipe } from './../../filter/searchfilter.pipe'
+import { SearchFilterPipe } from './../../filter/searchfilter.pipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student',
@@ -15,7 +16,7 @@ export class StudentComponent implements OnInit {
   private sideName:string;
   private searchtext: string;
 
-  constructor(public dialog: MdDialog) {
+  constructor(public dialog: MdDialog, private router:Router) {
     this.sideName = "Schüler";
    }
 
@@ -47,6 +48,12 @@ export class StudentComponent implements OnInit {
 
   private getNote(){
     this.note = JSON.parse(localStorage.getItem("note"));
+  }
+
+  private showNotes(i:number){
+    var items = JSON.parse(localStorage.getItem("students"));
+    let name = items[i].firstName + items[i].lastName;
+    this.router.navigate(['content/note'], {queryParams: {student: name}});
   }
 
   private setNote(){

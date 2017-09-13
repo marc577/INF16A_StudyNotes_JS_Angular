@@ -26,8 +26,8 @@ export class SearchFilterPipe implements PipeTransform {
         if (item.student != undefined && item.teacher != undefined) {
           if (item.student[field].toLowerCase() !== conditions[field].toLowerCase() &&
             item.student[field].toLowerCase() &&
-          item.teacher[field].toLowerCase() !== conditions[field].toLowerCase() &&
-          item.teacher[field].toLowerCase()) {
+            item.teacher[field].toLowerCase() !== conditions[field].toLowerCase() &&
+            item.teacher[field].toLowerCase()) {
             return false;
           }
         }

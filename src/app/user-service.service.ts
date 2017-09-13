@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie';
 
 @Injectable()
 export class UserServiceService {
@@ -6,17 +7,29 @@ export class UserServiceService {
 private isUserLoggedIn;
 private username;
 
-  constructor() { 
-    this.isUserLoggedIn = false;
-
-
+  constructor(private _cookieService:CookieService) { 
+    if(this.getCookie("isLoggedIn") == 'true'){
+      this.isUserLoggedIn = true;      
+    }
+    else{
+      this.isUserLoggedIn = false;
+    }
   }
+
+  private getCookie(key: string){
+    return this._cookieService.get(key);
+  }
+
   setUserLoggedIn(){
-    this.isUserLoggedIn = true;
+    if(this.getCookie("isLoggedIn") == 'true'){
+      this.isUserLoggedIn = true;      
+    }
+    else{
+      this.isUserLoggedIn = false;
+    }
   }
 
   getUserLoggegIn(){
     return this.isUserLoggedIn;
   }
-
 }

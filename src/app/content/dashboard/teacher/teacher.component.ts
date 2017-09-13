@@ -11,7 +11,7 @@ export class TeacherComponent implements OnInit {
 
   private teacher = [];
   private sideName: string;
-  private searchtext: string;
+  private searchText: string;
 
   constructor(public dialog: MdDialog, private snack: MdSnackBar) {
     this.sideName = "Lehrer";

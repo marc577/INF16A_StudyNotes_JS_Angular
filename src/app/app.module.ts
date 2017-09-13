@@ -28,6 +28,7 @@ import { NewclassComponent } from './content/dashboard/class/newclass/newclass.c
 import { EditnoteComponent } from './content/dashboard/note/editnote/editnote.component';
 import { NewnoteComponent } from './content/dashboard/note/newnote/newnote.component';
 import { SearchFilterPipe } from './content/filter/searchfilter.pipe';
+import { CookieModule } from 'ngx-cookie';
 import 'hammerjs';
 
 
@@ -61,7 +62,6 @@ const appRoutes: Routes = [
       component: ClassComponent,
     }
     ]
-
   },
 ]
 
@@ -71,7 +71,7 @@ const appRoutes: Routes = [
     AppComponent,SearchFilterPipe, LoginComponent, EditnoteComponent, NewnoteComponent, EditclassComponent, NewclassComponent, EditstudentComponent, NewstudentComponent, NewComponent, EditComponent, TeacherComponent, StudentComponent, ClassComponent, NoteComponent, ContentComponent, DashboardComponent, SidebarComponent, HomeComponent, NavbarComponent, FooterComponent
   ],
   imports: [
-    BrowserModule,MdChipsModule, MdAutocompleteModule, MdSnackBarModule, ReactiveFormsModule, MdSelectModule, CdkTableModule, MdDialogModule, MdTableModule, MdInputModule, MdIconModule, MdCardModule, MdMenuModule, MdCheckboxModule, MdProgressSpinnerModule, MdButtonModule, FormsModule, RouterModule.forRoot(appRoutes), BrowserAnimationsModule
+    BrowserModule,MdChipsModule, CookieModule.forRoot(), MdAutocompleteModule, MdSnackBarModule, ReactiveFormsModule, MdSelectModule, CdkTableModule, MdDialogModule, MdTableModule, MdInputModule, MdIconModule, MdCardModule, MdMenuModule, MdCheckboxModule, MdProgressSpinnerModule, MdButtonModule, FormsModule, RouterModule.forRoot(appRoutes), BrowserAnimationsModule
   ],
   providers: [ UserServiceService, AuthGuard, TeacherComponent, StudentComponent, ClassComponent, NoteComponent],
   bootstrap: [AppComponent],
