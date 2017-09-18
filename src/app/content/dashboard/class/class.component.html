@@ -9,16 +9,16 @@
   </div>
   <table cellspacing="0" cellpadding="20">
     <tr>
-      <th></th>
+      <!-- <th></th> -->
       <th></th>
       <th><a>Stufe</a></th>
       <th><a>Name</a></th>
       <th></th>
     </tr>
     <tr class="table-hover" *ngFor="let class of class | searchfilter : searchText; let i= index">
-      <td>
+      <!-- <td>
         <md-checkbox (click)="CheckboxCheck(i);" class="checkbox pull-left"></md-checkbox>
-      </td>
+      </td> -->
       <td class="initalen"><button class="pull-left" md-mini-fab>{{ class.level }} {{ class.name}}</button></td>
       <td><a>{{class.level}}</a></td>
       <td><a>{{class.name}}</a></td>

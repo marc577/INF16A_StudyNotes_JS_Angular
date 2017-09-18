@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA, MdSnackBar } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { Note, Student, StorageService } from '../../../../storage.service';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class EditnoteComponent implements OnInit {
   private date: Date;
   private note: string;
   private currentUser: string;
-  private student: string;
+  private student: Student;
+  private studentID: Number;
   private allStudents = [];
   private allStudentsData = [];
   private filteredOptions: Observable<string[]>;
@@ -22,31 +24,27 @@ export class EditnoteComponent implements OnInit {
 
   constructor(
     public dialogRef: MdDialogRef<EditnoteComponent>,
-    @Inject(MD_DIALOG_DATA) public data: any, public snackBar: MdSnackBar) {
+    @Inject(MD_DIALOG_DATA) public data: any, public snackBar: MdSnackBar, private service:StorageService) {
   }
 
   ngOnInit(
   ) {
     this.getStudents();
-    this.filteredOptions = this.studentControl.valueChanges
-      .startWith(null)
-      .map(val => val ? this.filter(val) : this.allStudents.slice());
+    if(this.data && this.data.student){
+      this.student = this.data.student;
+      this.studentID = this.student.id;
+    }
+    if(this.data && this.data.note){
+      this.note = this.data.note.note;
+      this.studentID = this.data.note.idStudent;
+    }
 
   }
 
   private editNote() {
-    if (this.note != undefined && this.student != null && this.regex.test(this.note)) {
-      var items = JSON.parse(localStorage.getItem("note"));
-      var editNote = {
-        'date': new Date(),
-        'note': this.note,
-        'teacher': this.getCurrentUser(),
-        'student': items[this.data.index].student
-      };
+    if (this.note != undefined  && this.studentID != null && this.regex.test(this.note)) {
+      this.service.updateNote(this.data.note.id,this.note, this.getCurrentUser(),this.studentID);
 
-      items[this.data.index] = editNote;
-      items = JSON.stringify(items);
-      localStorage.setItem("note", items);
     }
     else {
       this.snackBar.open("Eingabe fehlerhaft!", "Okay", {
@@ -56,12 +54,8 @@ export class EditnoteComponent implements OnInit {
   }
 
   private getStudents() {
-    var items = JSON.parse(localStorage.getItem("note"));
-    this.allStudentsData = JSON.parse(localStorage.getItem("students"));
 
-    this.note = items[this.data.index].note;
-    this.student = items[this.data.index].student;
-
+    this.allStudentsData = this.service.getStudents();
     for (let i = 0; i < this.allStudentsData.length; i++) {
       this.allStudents[i] = this.allStudentsData[i].firstName + this.allStudentsData[i].lastName;
     }

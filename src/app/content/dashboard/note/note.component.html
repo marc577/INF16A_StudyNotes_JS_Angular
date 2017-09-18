@@ -14,7 +14,7 @@
           <md-card-title>{{ note.teacher }}</md-card-title>
           <md-card-subtitle>{{note.date | date:"dd.MM.yyyy"}}</md-card-subtitle>
           <p class="header-note">
-            An: {{ note.student }}:
+            An: {{ getStudentName(note.idStudent) }}
           </p>
         </md-card-header>
         <md-card-content>
@@ -23,8 +23,8 @@
           </p>
         </md-card-content>
         <md-card-actions>
-          <button md-button (click)="editNote(i)">BEARBEITEN</button>
-          <button md-button (click)="deleteNote(i)">LÖSCHEN</button>
+          <button md-button (click)="editNote(note)">BEARBEITEN</button>
+          <button md-button (click)="deleteNote(note)">LÖSCHEN</button>
         </md-card-actions>
       </md-card>
     </div>

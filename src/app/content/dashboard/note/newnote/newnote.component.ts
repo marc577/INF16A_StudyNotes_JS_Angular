@@ -1,7 +1,10 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { MdSnackBar } from '@angular/material'
+import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA, MdSnackBar } from '@angular/material';
+import { Note, Student, StorageService } from '../../../../storage.service';
+
+
 
 
 @Component({
@@ -13,35 +16,32 @@ export class NewnoteComponent implements OnInit {
   private date: Date;
   private note: string;
   private currentUser: string;
-  private student: string;
+  private student: Student;
+  private studentID:Number;
   private allStudents = [];
   private allStudentsData = [];
   private filteredOptions: Observable<string[]>;
   private regex = new RegExp('[A-Za-z0-9]');
 
-  constructor(public snackBar: MdSnackBar) { }
+  constructor(@Inject(MD_DIALOG_DATA) public data: any,public snackBar: MdSnackBar,private service:StorageService ) { }
 
   ngOnInit(
   ) {
+    if(this.data && this.data.student){
+      this.student = this.data.student;
+      this.studentID = this.student.id;
+    }
     this.getStudents();
-    this.filteredOptions = this.studentControl.valueChanges
-      .startWith(null)
-      .map(val => val ? this.filter(val) : this.allStudents.slice());
+    
+    // this.filteredOptions = this.studentControl.valueChanges
+    //   .startWith(null)
+    //   .map(val => val ? this.filter(val) : this.allStudents.slice());
 
   }
 
   private newNote() {
-    if (this.note != null && this.student != null && this.regex.test(this.note)) {
-      var oldNote = JSON.parse(localStorage.getItem('note')) || [];
-      var newNote = {
-        'date': new Date(),
-        'note': this.note,
-        'teacher': this.getCurrentUser(),
-        'student': this.student
-      };
-      oldNote.push(newNote);
-      localStorage.setItem('note', JSON.stringify(oldNote));
-      window.location.reload();
+    if (this.note != null && this.studentID != null && this.regex.test(this.note)) {
+      this.service.addNote(this.studentID, this.note, this.getCurrentUser());
     }
     else {
       this.snackBar.open("Eingabe fehlerhaft!", "Okay", {
@@ -54,7 +54,7 @@ export class NewnoteComponent implements OnInit {
     return localStorage.getItem("currentUser");
   }
   private getStudents() {
-    this.allStudentsData = JSON.parse(localStorage.getItem("students"));
+    this.allStudentsData = this.service.getStudents();
     for (let i = 0; i < this.allStudentsData.length; i++) {
       this.allStudents[i] = this.allStudentsData[i].firstName + this.allStudentsData[i].lastName;
     }

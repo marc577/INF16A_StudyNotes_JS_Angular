@@ -2,17 +2,23 @@
 <md-dialog-content class="">
   <form class="dialog-form">
     <md-input-container>
-      <input class="dialog-input" mdInput placeholder="Notiz" type="text" [(ngModel)]="note" name="note" required>
+      <textarea class="dialog-input dialog-input-area" mdInput placeholder="Notiz" type="text" [(ngModel)]="note" name="note" required></textarea>
+      <!-- <input class="dialog-input" mdInput placeholder="Notiz" type="text" [(ngModel)]="note" name="note" required> -->
     </md-input-container>
-    <md-input-container>
-      <input placeholder="Schüler" name="student" [(ngModel)]="student" type="text" mdInput [formControl]="studentControl" [mdAutocomplete]="auto">
-    </md-input-container>
+    <!-- <md-input-container>
+      <input placeholder="Schüler" name="student" [(ngModel)]="studentID" type="text" mdInput [formControl]="studentControl" [mdAutocomplete]="auto">
+    </md-input-container> -->
 
-    <md-autocomplete #auto="mdAutocomplete" ngDefaultControl>
-      <md-option *ngFor="let student of filteredOptions | async" [value]="student">
-        {{ student }}
+    <!-- <md-autocomplete #auto="mdAutocomplete" ngDefaultControl>
+      <md-option *ngFor="let student of filteredOptions | async" [value]="student.id">
+        {{ student.firstName }} {{ student.lastName }}
       </md-option>
-    </md-autocomplete>
+    </md-autocomplete> -->
+
+    <select name="StudentSelect" [(ngModel)]="studentID">
+      <option *ngFor="let student of allStudentsData" [ngValue]="student.id">{{ student.firstName }} {{ student.lastName }}</option>
+    </select>
+
   </form>
 
 </md-dialog-content>

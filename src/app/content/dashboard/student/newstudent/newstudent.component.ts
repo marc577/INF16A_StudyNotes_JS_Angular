@@ -1,11 +1,13 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import {MdSnackBar} from '@angular/material';
+import {StorageService} from '../../../../storage.service';
 
 @Component({
   selector: 'app-newstudent',
-  templateUrl: './newstudent.component.html'
+  templateUrl: './newstudent.component.html',
+  providers: []
 })
-export class NewstudentComponent implements OnInit {
+export class NewstudentComponent implements OnInit{
   private firstName:string;
   private lastName:string;
   private class:string;
@@ -14,7 +16,7 @@ export class NewstudentComponent implements OnInit {
   private content = {};
   private regex = new RegExp("[A-Za-z]");
 
-  constructor(public snackBar:MdSnackBar) { }
+  constructor(public snackBar:MdSnackBar, private sService:StorageService) { }
 
   ngOnInit() {
     this.getClass();
@@ -22,16 +24,19 @@ export class NewstudentComponent implements OnInit {
 
   private newStudent(){
     if(this.firstName != null && this.lastName != null && this.class != null && this.regex.test(this.firstName) && this.regex.test(this.lastName)){
-      var oldStudent = JSON.parse(localStorage.getItem('students')) || [];
-    var newStudent = {
-    'firstName': this.firstName+" ",
-    'lastName': this.lastName,
-    'class': this.class
-    };
+    //   var oldStudent = JSON.parse(localStorage.getItem('students')) || [];
+    // var newStudent = {
+    // 'firstName': this.firstName+" ",
+    // 'lastName': this.lastName,
+    // 'class': this.class,
+    // 'id': this.createID(oldStudent)
+    // };
 
-    oldStudent.push(newStudent);
-    localStorage.setItem('students', JSON.stringify(oldStudent));
-    window.location.reload();
+    // oldStudent.push(newStudent);
+    // localStorage.setItem('students', JSON.stringify(oldStudent));
+    // window.location.reload();
+      this.sService.addStudent(this.firstName, this.lastName, this.class);
+
     }
     else{
       this.snackBar.open("Eingabe fehlerhaft!", "Okay", {

@@ -14,7 +14,7 @@ import { FooterComponent } from './content/footer/footer.component';
 import { MdButtonModule, MdChipsModule, MdSnackBarModule, MdAutocompleteModule, MdSelectModule, MdTableModule, MdMenuModule, MdDialogModule, MdCheckboxModule, MdCardModule, MdProgressSpinnerModule, MdIconModule, MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './content/dashboard/home/home.component';
-import { CdkTableModule } from '@angular/cdk';
+// import { CdkTableModule } from '@angular/cdk';
 import { TeacherComponent } from './content/dashboard/teacher/teacher.component';
 import { StudentComponent } from './content/dashboard/student/student.component';
 import { ClassComponent } from './content/dashboard/class/class.component';
@@ -29,6 +29,7 @@ import { EditnoteComponent } from './content/dashboard/note/editnote/editnote.co
 import { NewnoteComponent } from './content/dashboard/note/newnote/newnote.component';
 import { SearchFilterPipe } from './content/filter/searchfilter.pipe';
 import { CookieModule } from 'ngx-cookie';
+import { StorageService } from './storage.service';
 import 'hammerjs';
 
 
@@ -60,6 +61,10 @@ const appRoutes: Routes = [
     {
       path: 'class',
       component: ClassComponent,
+    },
+    {
+      path: 'detail',
+      component: StudentComponent,
     }
     ]
   },
@@ -73,7 +78,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,MdChipsModule, CookieModule.forRoot(), MdAutocompleteModule, MdSnackBarModule, ReactiveFormsModule, MdSelectModule, CdkTableModule, MdDialogModule, MdTableModule, MdInputModule, MdIconModule, MdCardModule, MdMenuModule, MdCheckboxModule, MdProgressSpinnerModule, MdButtonModule, FormsModule, RouterModule.forRoot(appRoutes), BrowserAnimationsModule
   ],
-  providers: [ UserServiceService, AuthGuard, TeacherComponent, StudentComponent, ClassComponent, NoteComponent],
+  providers: [ UserServiceService, AuthGuard, TeacherComponent, StudentComponent, ClassComponent, NoteComponent, StorageService],
   bootstrap: [AppComponent],
   entryComponents: [NewComponent, EditComponent, EditstudentComponent, NewstudentComponent, NewclassComponent, EditclassComponent, EditnoteComponent, NewnoteComponent]
 })

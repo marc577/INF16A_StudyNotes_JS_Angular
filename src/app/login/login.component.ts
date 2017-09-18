@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
 }
 
   private getCookie(key: string){
-    console.log(this._cookieService.get(key));
     return this._cookieService.get(key);
   }
 

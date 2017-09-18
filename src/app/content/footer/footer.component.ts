@@ -20,26 +20,26 @@ export class FooterComponent implements OnInit {
   constructor(public dialog: MdDialog, private router:Router, private teacher: TeacherComponent, private student:StudentComponent, private classes: ClassComponent, private note: NoteComponent) {}
 
   private openDialog() {
-    if(this.router.url == "/content/teacher"){
+    if(this.router.url.startsWith("/content/teacher")){
       this.dialogRef = this.dialog.open(NewComponent);
       this.dialogRef.afterClosed().subscribe(res => {
         this.teacher.getTeacher();
       });
     }
-    if(this.router.url == "/content/student"){
+    if(this.router.url.startsWith("/content/student")){
       this.dialogRef = this.dialog.open(NewstudentComponent);
       this.dialogRef.afterClosed().subscribe(res => {
         this.student.getStudent();
       });
     }
-    if(this.router.url == "/content/class"){
+    if(this.router.url.startsWith("/content/class")){
       this.dialogRef = this.dialog.open(NewclassComponent);
       this.dialogRef.afterClosed().subscribe(res => {
         this.classes.getClass();
       });
       
     }
-    if(this.router.url == "/content/note"){
+    if(this.router.url.startsWith("/content/note")){
       this.dialogRef = this.dialog.open(NewnoteComponent);
       this.dialogRef.afterClosed().subscribe(res => {
         this.note.getNote();

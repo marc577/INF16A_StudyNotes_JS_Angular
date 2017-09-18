@@ -8,7 +8,7 @@
       </div>
   <table cellspacing="0" cellpadding="20">
     <tr>
-      <th></th>
+      <!-- <th></th> -->
       <th></th>
       <th><a>Vorname</a></th>
       <th><a>Nachname</a></th>
@@ -17,9 +17,9 @@
       <th></th>
     </tr>
     <tr class="table-hover" *ngFor="let teacher of teacher | searchfilter : searchText; let i= index">
-      <td>
+      <!-- <td>
         <md-checkbox class="checkbox pull-left"></md-checkbox>
-      </td>
+      </td> -->
       <td class="initalen"><button class="pull-left" md-mini-fab>{{ teacher.firstName | slice: 0:1}}{{ teacher.lastName | slice: 0:1}}</button></td>
       <td><a>{{teacher.firstName}}</a></td>
       <td><a>{{teacher.lastName}}</a></td>
